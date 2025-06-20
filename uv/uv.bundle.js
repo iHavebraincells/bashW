@@ -1,0 +1,1 @@
+// UV bundle JS placeholder

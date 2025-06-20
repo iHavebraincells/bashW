@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>bashW</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
+    }
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    h1 {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 3rem;
+      z-index: 1;
+      position: relative;
+    }
+    .container {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    input {
+      padding: 10px;
+      width: 60%;
+      margin: 1rem 0;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 0.5rem;
+      font-size: 1rem;
+      border: none;
+      background-color: white;
+      color: black;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .buttons {
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="snow"></canvas>
+  <h1>bashW</h1>
+  <div class="container">
+    <form onsubmit="go(event)">
+      <input id="url" placeholder="Enter a site URL..." />
+      <button type="submit">Go</button>
+    </form>
+    <div class="buttons">
+      <button onclick="goTo('https://www.google.com')">Google</button>
+      <button onclick="goTo('https://www.youtube.com')">YouTube</button>
+      <button onclick="goTo('https://discord.com')">Discord</button>
+      <button onclick="goTo('https://tiktok.com')">TikTok</button>
+    </div>
+  </div>
+  <script>
+    const snow = document.getElementById('snow');
+    const ctx = snow.getContext('2d');
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let snowflakes = [];
+
+    snow.width = width;
+    snow.height = height;
+
+    function createSnowflakes() {
+      for (let i = 0; i < 100; i++) {
+        snowflakes.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: Math.random() * 4 + 1,
+          d: Math.random() * 1 + 1
+        });
+      }
+    }
+
+    function drawSnowflakes() {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = 'white';
+      ctx.beginPath();
+      for (let flake of snowflakes) {
+        ctx.moveTo(flake.x, flake.y);
+        ctx.arc(flake.x, flake.y, flake.r, 0, Math.PI * 2);
+      }
+      ctx.fill();
+      moveSnowflakes();
+    }
+
+    function moveSnowflakes() {
+      for (let flake of snowflakes) {
+        flake.y += flake.d;
+        if (flake.y > height) {
+          flake.y = 0;
+          flake.x = Math.random() * width;
+        }
+      }
+    }
+
+    function updateSnowfall() {
+      drawSnowflakes();
+      requestAnimationFrame(updateSnowfall);
+    }
+
+    function go(event) {
+      event.preventDefault();
+      const url = document.getElementById('url').value.trim();
+      if (url) {
+        window.location.href = '/uv/' + __uv$config.encodeUrl(url);
+      }
+    }
+
+    function goTo(url) {
+      window.location.href = '/uv/' + __uv$config.encodeUrl(url);
+    }
+
+    createSnowflakes();
+    updateSnowfall();
+  </script>
+  <script src="/uv/uv.bundle.js"></script>
+  <script src="/uv/uv.config.js"></script>
+</body>
+</html>

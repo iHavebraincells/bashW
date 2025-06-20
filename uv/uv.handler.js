@@ -1,0 +1,1 @@
+// UV handler JS placeholder
