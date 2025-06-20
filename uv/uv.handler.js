@@ -1,1 +1,5 @@
-// UV handler JS placeholder
+export const UVHandler = {
+  handleRequest(req) {
+    return fetch(req);
+  }
+};
