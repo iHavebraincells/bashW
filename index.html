@@ -122,19 +122,18 @@
       event.preventDefault();
       const url = document.getElementById('url').value.trim();
       if (url) {
-        window.location.href = '/uv/' + __uv$config.encodeUrl(url);
+window.location.href = '/bashW/uv/' + __uv$config.encodeUrl(url);
       }
     }
 
     function goTo(url) {
-      window.location.href = '/uv/' + __uv$config.encodeUrl(url);
+     window.location.href = '/bashW/uv/' + __uv$config.encodeUrl(url);
     }
-
     createSnowflakes();
     updateSnowfall();
   </script>
-  <script src="/uv/uv.bundle.js"></script>
-  <script src="/uv/uv.config.js"></script>
+  <script src="/bashW/uv/uv.bundle.js"></script>
+<script src="/bashW/uv/uv.config.js"></script>
   <script>
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/bashW/uv/uv.sw.js');
