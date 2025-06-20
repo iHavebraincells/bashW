@@ -1,5 +1,6 @@
-import { UVServiceWorker } from './uv.sw.js';
-import { UVHandler } from './uv.handler.js';
+self.UVHandler = {
+  handleRequest: (req) => fetch(req)
+};
 
 self.UV = {
   config: {
@@ -8,6 +9,5 @@ self.UV = {
     encodeUrl: (url) => btoa(url),
     decodeUrl: (url) => atob(url)
   },
-  handler: UVHandler,
-  serviceWorker: UVServiceWorker
+  handler: self.UVHandler,
 };
